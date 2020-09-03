@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.16;
 
 import "./EmailRegex.sol";
 import "./StringUtils.sol";
@@ -6,7 +6,7 @@ import "./StringUtils.sol";
 /** @title Accounts. */
 contract Accounts {
     
-  address private owner;
+  address payable private owner;
   mapping (address => account) private accounts;
   address[] private verifiers;
   
@@ -27,7 +27,7 @@ contract Accounts {
       * @param _email email address.
       * @return bool require.
       */
-  modifier isEmailValid(string _email) 
+  modifier isEmailValid(string memory _email) 
   {
     require(EmailRegex.matches(_email));
     _;
@@ -67,7 +67,7 @@ contract Accounts {
       * @param _aType user aType.
       * @param price document verification price.
       */
-  function register(string _name, string _email, string _logo, string _description, AccountType _aType, uint price) 
+  function register(string memory _name, string memory _email, string memory _logo, string memory _description, AccountType _aType, uint price) 
   public 
   payable
   isEmailValid(_email)
@@ -95,7 +95,7 @@ contract Accounts {
   function getAccount() 
   public 
   view 
-  returns (string name, string email, string logo, string description, AccountType aType, uint price) 
+  returns (string memory name, string memory email, string memory logo, string memory description, AccountType aType, uint price) 
   {
     name = accounts[msg.sender].name;
     email = accounts[msg.sender].email;
@@ -129,7 +129,7 @@ contract Accounts {
   function getVerifier(uint pIndex)
   public 
   view
-  returns (address verifier, string name, string email, string logo, string description, AccountType aType, uint price) 
+  returns (address verifier, string memory name, string memory email, string memory logo, string memory description, AccountType aType, uint price) 
   {
     address verifierAddr = verifiers[pIndex];
     name = accounts[verifierAddr].name;
