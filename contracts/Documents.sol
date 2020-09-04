@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.4.24;
 
 import "./StringUtils.sol";
 import "./Accounts.sol";
@@ -6,7 +6,7 @@ import "./Accounts.sol";
 /** @title Documents. */
 contract Documents {
     
-  address payable private owner;
+  address private owner;
   address public accountsAddress;
   Document[] private documents;
   mapping (address => Count) private counts;
@@ -14,8 +14,8 @@ contract Documents {
   mapping (address => uint) balances;
  
   struct Document {
-    address payable requester;
-    address payable verifier;
+    address requester;
+    address verifier;
     string name;
     string description;
     string docAddress;
@@ -35,7 +35,7 @@ contract Documents {
   /** @dev check for document address exists.
       * @param _docAddress document address.
       */
-  modifier docAddressExists(string memory _docAddress) 
+  modifier docAddressExists(string _docAddress) 
   {
     bool found = false;
     for (uint i=0; i<documents.length; i++) {
@@ -83,7 +83,7 @@ contract Documents {
       * @param _description document _description.
       * @param _docAddress document _docAddress.
       */
-  function addDocument(address payable _verifier, string memory _name, string memory _description, string memory _docAddress) 
+  function addDocument(address _verifier, string _name, string _description, string _docAddress) 
   public 
   payable
   docAddressExists(_docAddress)
@@ -115,10 +115,10 @@ contract Documents {
       * @return description document description.
       * @return status document status.
       */
-  function getDocument(string memory docAddress) 
+  function getDocument(string docAddress) 
   public 
   view 
-  returns (string memory name, address requester, address verifier, string memory description, DocStatus status) {
+  returns (string name, address requester, address verifier, string description, DocStatus status) {
     for (uint i=0; i<documents.length; i++) {
       if(StringUtils.equal(documents[i].docAddress, docAddress)){
         requester = documents[i].requester;
@@ -145,7 +145,7 @@ contract Documents {
   function getVerifierDocuments(address _verifier, uint lIndex) 
   public 
   view 
-  returns (string memory name, address requester, string memory description, string memory docAddress, DocStatus status, uint index) {
+  returns (string name, address requester, string description, string docAddress, DocStatus status, uint index) {
     for (uint i=lIndex; i<documents.length; i++) {
       if(documents[i].verifier == _verifier){
         requester = documents[i].requester;
@@ -173,7 +173,7 @@ contract Documents {
   function getRequesterDocuments(address _requester, uint lIndex) 
   public 
   view 
-  returns (string memory name, address verifier, string memory description, string memory docAddress, DocStatus status, uint index) {
+  returns (string name, address verifier, string description, string docAddress, DocStatus status, uint index) {
     for (uint i=lIndex; i<documents.length; i++) {
       if(documents[i].requester == _requester){
         verifier = documents[i].verifier;
@@ -192,7 +192,7 @@ contract Documents {
       * @param docAddress document address.
       * @param status document status.
       */   
-  function verifyDocument(string memory docAddress, DocStatus status) 
+  function verifyDocument(string docAddress, DocStatus status) 
   public 
   payable
   {

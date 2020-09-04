@@ -1,12 +1,12 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.4.24;
 
 library EmailRegex {
   struct State {
     bool accepts;
-    function (uint8) internal pure returns (uint) func;
+    function (byte) internal pure returns (uint) func;
   }
 
-  function state(uint id) internal pure returns (State memory) {
+  function state(uint id) internal pure returns (State) {
     if (id == 1) {
       return State(false, s1);
     }
@@ -39,11 +39,11 @@ library EmailRegex {
     }
   }
 
-  function matches(string memory input) public pure returns (bool) {
+  function matches(string input) public pure returns (bool) {
     uint cur = 1;
 
     for (uint i = 0; i < bytes(input).length; i++) {
-      uint8 c = uint8(bytes(input)[i]); //bytes1 c = bytes(input)[i];
+      bytes1 c = bytes(input)[i];
 
       cur = state(cur).func(c);
       if (cur == 0) {
@@ -54,7 +54,7 @@ library EmailRegex {
     return state(cur).accepts;
   }
 
-  function s1(uint8 c) internal pure returns (uint) {
+  function s1(byte c) internal pure returns (uint) {
     if (c >= 37 && c <= 37 || c >= 43 && c <= 43 || c >= 45 && c <= 45 || c >= 46 && c <= 46 || c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 95 && c <= 95 || c >= 97 && c <= 122) {
       return 2;
     }
@@ -62,7 +62,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s2(uint8 c)  internal pure  returns (uint) {
+  function s2(byte c)  internal pure  returns (uint) {
     if (c >= 37 && c <= 37 || c >= 43 && c <= 43 || c >= 45 && c <= 45 || c >= 46 && c <= 46 || c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 95 && c <= 95 || c >= 97 && c <= 122) {
       return 3;
     }
@@ -73,7 +73,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s3(uint8 c)  internal pure returns (uint) {
+  function s3(byte c)  internal pure returns (uint) {
     if (c >= 37 && c <= 37 || c >= 43 && c <= 43 || c >= 45 && c <= 45 || c >= 46 && c <= 46 || c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 95 && c <= 95 || c >= 97 && c <= 122) {
       return 3;
     }
@@ -84,7 +84,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s4(uint8 c) internal pure returns (uint) {
+  function s4(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 47 || c >= 48 && c <= 57 || c >= 58 && c <= 64 || c >= 65 && c <= 90 || c >= 91 && c <= 95 || c >= 97 && c <= 122) {
       return 5;
     }
@@ -92,7 +92,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s5(uint8 c) internal pure returns (uint) {
+  function s5(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
@@ -103,7 +103,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s6(uint8 c) internal pure returns (uint) {
+  function s6(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
@@ -117,7 +117,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s7(uint8 c) internal pure returns (uint) {
+  function s7(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
@@ -128,7 +128,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s8(uint8 c) internal pure returns (uint) {
+  function s8(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
@@ -142,7 +142,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s9(uint8 c) internal pure returns (uint) {
+  function s9(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
@@ -156,7 +156,7 @@ library EmailRegex {
     return 0;
   }
 
-  function s10(uint8 c) internal pure returns (uint) {
+  function s10(byte c) internal pure returns (uint) {
     if (c >= 46 && c <= 46) {
       return 6;
     }
